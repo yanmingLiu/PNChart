@@ -50,4 +50,9 @@ typedef NS_ENUM(NSUInteger, PNRadarChartLabelStyle) {
 /** is show graduation on the chart ,default is NO. */
 @property (nonatomic, assign) BOOL isShowGraduation;
 
+/** 渐变边框的颜色 */
+@property (nonatomic) NSArray *plotBorderColors;
+/** 渐变背景的颜色 */
+@property (nonatomic) NSArray *plotBackColors;
+
 @end

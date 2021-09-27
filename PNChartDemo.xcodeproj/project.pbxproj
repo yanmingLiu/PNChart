@@ -338,24 +338,20 @@
 		9FE15DE0190BB014004129F5 /* PNChart */ = {
 			isa = PBXGroup;
 			children = (
-				0A2922821A423FB300A42BC4 /* PNScatterChart.h */,
-				0A2922831A423FB300A42BC4 /* PNScatterChart.m */,
-				0A2922841A423FB300A42BC4 /* PNScatterChartData.h */,
-				0A2922851A423FB300A42BC4 /* PNScatterChartData.m */,
-				0A2922861A423FB300A42BC4 /* PNScatterChartDataItem.h */,
-				0A2922871A423FB300A42BC4 /* PNScatterChartDataItem.m */,
-				9FE15DE6190BB014004129F5 /* PNChart.h */,
-				9FE15DE7190BB014004129F5 /* PNChartDelegate.h */,
-				9FE15DE8190BB014004129F5 /* PNChartLabel.h */,
-				9FE15DE9190BB014004129F5 /* PNChartLabel.m */,
-				9FE15DED190BB014004129F5 /* PNColor.h */,
-				9FE15DEE190BB014004129F5 /* PNColor.m */,
 				91177EC8198DFAC400017E27 /* PNBar.h */,
 				91177EC9198DFAC400017E27 /* PNBar.m */,
 				91177ECA198DFAC400017E27 /* PNBarChart.h */,
 				5C9B4AA21B05BBCB00093EBE /* PNBarChart.m */,
+				9FE15DE6190BB014004129F5 /* PNChart.h */,
+				9FE15DE7190BB014004129F5 /* PNChartDelegate.h */,
+				9FE15DE8190BB014004129F5 /* PNChartLabel.h */,
+				9FE15DE9190BB014004129F5 /* PNChartLabel.m */,
 				91177ECC198DFAC400017E27 /* PNCircleChart.h */,
 				91177ECD198DFAC400017E27 /* PNCircleChart.m */,
+				9FE15DED190BB014004129F5 /* PNColor.h */,
+				9FE15DEE190BB014004129F5 /* PNColor.m */,
+				A9C75FA41A9F1DA900A54638 /* PNGenericChart.h */,
+				A9C75FA51A9F1DA900A54638 /* PNGenericChart.m */,
 				91177ECE198DFAC400017E27 /* PNLineChart.h */,
 				91177ECF198DFAC400017E27 /* PNLineChart.m */,
 				91177ED0198DFAC400017E27 /* PNLineChartData.h */,
@@ -366,12 +362,16 @@
 				91177ED5198DFAC400017E27 /* PNPieChart.m */,
 				91177ED6198DFAC400017E27 /* PNPieChartDataItem.h */,
 				91177ED7198DFAC400017E27 /* PNPieChartDataItem.m */,
-				A9C75FA41A9F1DA900A54638 /* PNGenericChart.h */,
-				A9C75FA51A9F1DA900A54638 /* PNGenericChart.m */,
 				ABD79D001B43700800A7C300 /* PNRadarChart.h */,
 				ABD79D011B43700800A7C300 /* PNRadarChart.m */,
 				ABD79D031B43CF8000A7C300 /* PNRadarChartDataItem.h */,
 				ABD79D041B43CF8000A7C300 /* PNRadarChartDataItem.m */,
+				0A2922821A423FB300A42BC4 /* PNScatterChart.h */,
+				0A2922831A423FB300A42BC4 /* PNScatterChart.m */,
+				0A2922841A423FB300A42BC4 /* PNScatterChartData.h */,
+				0A2922851A423FB300A42BC4 /* PNScatterChartData.m */,
+				0A2922861A423FB300A42BC4 /* PNScatterChartDataItem.h */,
+				0A2922871A423FB300A42BC4 /* PNScatterChartDataItem.m */,
 			);
 			path = PNChart;
 			sourceTree = "<group>";
@@ -416,8 +416,6 @@
 				0AF7A860182AA9F6003645C4 /* Sources */,
 				0AF7A861182AA9F6003645C4 /* Frameworks */,
 				0AF7A862182AA9F6003645C4 /* Resources */,
-				7D516272BD760D57A76DAD64 /* [CP] Embed Pods Frameworks */,
-				4552CFD6C9080AB9EE9E46D1 /* [CP] Copy Pods Resources */,
 				3ED57DE8204F0C44003D6796 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -456,8 +454,6 @@
 				6E984E4D1AE2AF2D00E817A0 /* Sources */,
 				6E984E4E1AE2AF2D00E817A0 /* Frameworks */,
 				6E984E4F1AE2AF2D00E817A0 /* Resources */,
-				352F07839FB03B1A9D90A483 /* [CP] Embed Pods Frameworks */,
-				7D8856A691FAB9EC9C672F2A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -494,6 +490,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -539,36 +536,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		352F07839FB03B1A9D90A483 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PNChartTests/Pods-PNChartTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4552CFD6C9080AB9EE9E46D1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PNChartDemo/Pods-PNChartDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		701E9E0847192B2A2BE3698D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -585,36 +552,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7D516272BD760D57A76DAD64 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PNChartDemo/Pods-PNChartDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7D8856A691FAB9EC9C672F2A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PNChartTests/Pods-PNChartTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FA0C39B32F296624BBDFF3E3 /* [CP] Check Pods Manifest.lock */ = {

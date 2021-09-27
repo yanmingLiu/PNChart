@@ -17,6 +17,8 @@
 @property (nonatomic) UILabel *detailLabel;
 @property (nonatomic) CGFloat lengthUnit;
 @property (nonatomic) CAShapeLayer *chartPlot;
+@property (nonatomic) CAGradientLayer *gradientLayer;
+@property (nonatomic) CAGradientLayer *gradientBgLayer;
 
 @end
 
@@ -64,6 +66,18 @@
         _chartPlot.lineWidth = 1.0;
         [self.layer addSublayer:_chartPlot];
         
+        _gradientBgLayer = [CAGradientLayer layer];
+        _gradientBgLayer.frame = frame;
+        _gradientBgLayer.startPoint = CGPointMake(0.5, 0);
+        _gradientBgLayer.endPoint = CGPointMake(0.5, 1.0);
+        [self.layer addSublayer:_gradientBgLayer];
+
+        _gradientLayer = [CAGradientLayer layer];
+        _gradientLayer.frame = frame;
+        _gradientLayer.startPoint = CGPointMake(0.5, 0);
+        _gradientLayer.endPoint = CGPointMake(0.5, 1.0);
+        [self.layer addSublayer:_gradientLayer];
+        
         [super setupDefaultValues];
          //init detailLabel
         _detailLabel = [[UILabel alloc] init];
@@ -71,12 +85,21 @@
         _detailLabel.textAlignment = NSTextAlignmentCenter;
         _detailLabel.textColor = [UIColor colorWithWhite:1 alpha:1];
         _detailLabel.font = [UIFont systemFontOfSize:15];
+        _detailLabel.numberOfLines = 0;
         [_detailLabel setHidden:YES];
         [self addSubview:_detailLabel];
         
         [self strokeChart];
     }
     return self;
+}
+
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    _gradientLayer.frame = self.bounds;
+    _gradientBgLayer.frame = self.bounds;
 }
 
 #pragma mark - main
@@ -197,12 +220,35 @@
         [plotline addLineToPoint:CGPointMake(point.x ,point.y)];
         
     }
-    [plotline setLineWidth:1];
+    [plotline setLineWidth:2];
     [plotline setLineCapStyle:kCGLineCapButt];
+    [plotline closePath];
     
     _chartPlot.path = plotline.CGPath;
+
+    _chartPlot.fillColor = UIColor.clearColor.CGColor;
     
-    _chartPlot.fillColor = _plotColor.CGColor;
+    // 渐变背景
+    CAShapeLayer *bgLayer = [CAShapeLayer layer];
+    bgLayer.fillColor = [UIColor whiteColor].CGColor;
+    bgLayer.strokeColor = [UIColor whiteColor].CGColor;
+    bgLayer.lineWidth = 0;
+    bgLayer.lineCap = kCALineCapButt;
+    bgLayer.path = plotline.CGPath;
+
+    _gradientBgLayer.colors = _plotBackColors;
+    _gradientBgLayer.mask = bgLayer;
+
+    // 渐变边框
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.path = plotline.CGPath;
+    shapeLayer.fillColor = [UIColor clearColor].CGColor;
+    shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
+    shapeLayer.lineWidth = 3;
+    shapeLayer.lineCap = kCALineCapButt;
+    _gradientLayer.colors = _plotBorderColors;
+    _gradientLayer.mask = shapeLayer;
+    
 
     [self addAnimationIfNeeded];
     [self showGraduation];
@@ -234,6 +280,8 @@
         label.textColor = _fontColor;
         label.text = labelString;
         label.tag = labelTag;
+        label.numberOfLines = 0;
+        
         CGSize detailSize = [labelString sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_fontSize]}];
         
         switch (_labelStyle) {
@@ -254,6 +302,7 @@
                     label.frame = CGRectMake(x - detailSize.width * 0.5, y - detailSize.height * 0.5, detailSize.width , detailSize.height);
                     label.textAlignment = NSTextAlignmentCenter;
                 }
+                label.textAlignment = NSTextAlignmentCenter;
                 break;
             case PNRadarChartLabelStyleHidden:
                 [label setHidden:YES];
@@ -261,6 +310,7 @@
             default:
                 break;
         }
+        
         [label sizeToFit];
         
         if (_isLabelTouchable) {
