@@ -159,8 +159,8 @@ static int labelTag = 121;
         
         CGFloat length = valueFloat/_maxValue*maxLength;
         CGFloat angle = [[angles objectAtIndex:section] floatValue];
-        CGFloat x = _centerX +length*cos(angle);
-        CGFloat y = _centerY +length*sin(angle);
+        CGFloat x = _centerX + length * cos(angle);
+        CGFloat y = _centerY + length * sin(angle);
         NSValue* point = [NSValue valueWithCGPoint:CGPointMake(x, y)];
         [_pointsToPlotArray addObject:point];
         section++;
@@ -266,12 +266,12 @@ static int labelTag = 121;
         [label removeFromSuperview];
     }
     int section = 0;
-    CGFloat labelLength = maxLength + maxLength/4;
+    CGFloat labelLength = maxLength + maxLength/10;
     
     for (NSString *labelString in labelArray) {
         CGFloat angle = [[angleArray objectAtIndex:section] floatValue];
-        CGFloat x = _centerX + labelLength *cos(angle);
-        CGFloat y = _centerY + labelLength *sin(angle);
+        CGFloat x = _centerX + labelLength * cos(angle);
+        CGFloat y = _centerY + labelLength * sin(angle);
         
         UILabel *label = [[UILabel alloc] init] ;
         label.backgroundColor = [UIColor clearColor];
@@ -280,8 +280,11 @@ static int labelTag = 121;
         label.text = labelString;
         label.tag = labelTag;
         label.numberOfLines = 0;
+        [label sizeToFit];
         
         CGSize detailSize = [labelString sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_fontSize]}];
+        detailSize = label.frame.size;
+        CGFloat labelY = y - ceil(detailSize.height) / 2.0;
         
         switch (_labelStyle) {
             case PNRadarChartLabelStyleCircle:
@@ -291,18 +294,20 @@ static int labelTag = 121;
                 break;
             case PNRadarChartLabelStyleHorizontal:
                 if (x<_centerX) {
-                    label.frame = CGRectMake(x-detailSize.width, y-detailSize.height/2, detailSize.width, detailSize.height);
+                    label.frame = CGRectMake(x-detailSize.width, labelY, detailSize.width, detailSize.height);
                     label.textAlignment = NSTextAlignmentRight;
                 }else{
-                    label.frame = CGRectMake(x, y-detailSize.height/2, detailSize.width , detailSize.height);
+                    label.frame = CGRectMake(x, labelY, detailSize.width , detailSize.height);
                     label.textAlignment = NSTextAlignmentLeft;
                 }
                 if ((int)x == (int)_centerX) {
-                    NSLog(@"labelLength : %f", labelLength);
-                    NSLog(@"y1 : %f", y);
-                    NSLog(@"angle : %f", angle);
-                    NSLog(@"y2 : %f", y - detailSize.height * 0.5);
-                    label.frame = CGRectMake(x - detailSize.width * 0.5, y - detailSize.height * 0.5, detailSize.width , detailSize.height);
+                    if (section == 0) {
+                        labelY = 0;
+                    }
+                    if (section == 2) {
+                        labelY = self.frame.size.height - ceil(detailSize.height);
+                    }
+                    label.frame = CGRectMake(fabs(x - detailSize.width * 0.5), labelY, detailSize.width , detailSize.height);
                     label.textAlignment = NSTextAlignmentCenter;
                 }
                 label.textAlignment = NSTextAlignmentCenter;
@@ -394,7 +399,7 @@ static int labelTag = 121;
         CGSize detailSize = [str sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_fontSize]}];
         maxWidth = MAX(maxWidth, detailSize.width);
     }
-    return maxWidth;
+    return ceil(maxWidth);
 }
 
 - (CGFloat)getMaxValueFromArray:(NSArray *)valueArray {
