@@ -126,16 +126,13 @@ static int labelTag = 121;
     //calculate all the lengths
     _maxValue = [self getMaxValueFromArray:values];
     
-//    CGFloat margin = 0;
-//    if (_labelStyle==PNRadarChartLabelStyleCircle) {
-//        margin = MIN(_centerX , _centerY)*3/10;
-//    }else if (_labelStyle==PNRadarChartLabelStyleHorizontal) {
-//        margin = [self getMaxWidthLabelFromArray:descriptions withFontSize:_fontSize];
-//    }
-//    CGFloat maxLength = ceil(MIN(_centerX, _centerY) - margin);
-    
-    CGFloat margin = [self getMaxWidthLabelFromArray:descriptions withFontSize:_fontSize];
-    CGFloat maxLength = ceil(_centerX - margin);
+    CGFloat margin = 0;
+    if (_labelStyle==PNRadarChartLabelStyleCircle) {
+        margin = MIN(_centerX , _centerY)*3/10;
+    }else if (_labelStyle==PNRadarChartLabelStyleHorizontal) {
+        margin = [self getMaxWidthLabelFromArray:descriptions withFontSize:_fontSize];
+    }
+    CGFloat maxLength = ceil(MAX(_centerX, _centerY) - margin);
     
     int plotCircles = (_maxValue/_valueDivider);
     if (plotCircles > MAXCIRCLE) {

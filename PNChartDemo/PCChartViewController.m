@@ -289,7 +289,7 @@
                            [PNRadarChartDataItem dataItemWithValue:3.0 description:@"Skill\n3.0"],
                            ];
 
-        self.radarChart = [[PNRadarChart alloc] initWithFrame:CGRectMake(0, 135.0, SCREEN_WIDTH, 166)
+        self.radarChart = [[PNRadarChart alloc] initWithFrame:CGRectMake(0, 135.0, SCREEN_WIDTH, 140)
                                                         items:items
                                                  valueDivider:1.5];
         self.radarChart.maxValue = 5;
