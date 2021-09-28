@@ -67,16 +67,21 @@ static int labelTag = 121;
         _chartPlot.lineWidth = 1.0;
         [self.layer addSublayer:_chartPlot];
         
+        CGFloat width = frame.size.width;
+        CGFloat height = frame.size.height;
+        
         _gradientBgLayer = [CAGradientLayer layer];
+        _gradientBgLayer.frame = CGRectMake(0, 0, width, height);
         _gradientBgLayer.startPoint = CGPointMake(0.5, 0);
         _gradientBgLayer.endPoint = CGPointMake(0.5, 1.0);
-        _gradientBgLayer.locations = @[@0.25, @0.75, @1.0];
+        _gradientBgLayer.locations = @[@0.25,@0.75];
         [self.layer addSublayer:_gradientBgLayer];
 
         _gradientLayer = [CAGradientLayer layer];
+        _gradientLayer.frame = CGRectMake(0, 0, width, height);
         _gradientLayer.startPoint = CGPointMake(0.5, 0);
         _gradientLayer.endPoint = CGPointMake(0.5, 1.0);
-        _gradientLayer.locations = @[@0.25, @0.75];
+        _gradientLayer.locations = @[@0.25,@0.75];
         [self.layer addSublayer:_gradientLayer];
         
         [super setupDefaultValues];
@@ -97,13 +102,6 @@ static int labelTag = 121;
     return self;
 }
 
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-
-    _gradientLayer.frame = self.bounds;
-    _gradientBgLayer.frame = self.bounds;
-}
 
 #pragma mark - main
 - (void)calculateChartPoints {
