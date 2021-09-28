@@ -266,7 +266,7 @@ static int labelTag = 121;
         [label removeFromSuperview];
     }
     int section = 0;
-    CGFloat labelLength = maxLength + maxLength/10;
+    CGFloat labelLength = maxLength + maxLength/4;
     
     for (NSString *labelString in labelArray) {
         CGFloat angle = [[angleArray objectAtIndex:section] floatValue];
@@ -298,6 +298,10 @@ static int labelTag = 121;
                     label.textAlignment = NSTextAlignmentLeft;
                 }
                 if ((int)x == (int)_centerX) {
+                    NSLog(@"labelLength : %f", labelLength);
+                    NSLog(@"y1 : %f", y);
+                    NSLog(@"angle : %f", angle);
+                    NSLog(@"y2 : %f", y - detailSize.height * 0.5);
                     label.frame = CGRectMake(x - detailSize.width * 0.5, y - detailSize.height * 0.5, detailSize.width , detailSize.height);
                     label.textAlignment = NSTextAlignmentCenter;
                 }
