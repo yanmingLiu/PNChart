@@ -20,7 +20,6 @@
 @property (nonatomic) CAGradientLayer *gradientLayer;
 @property (nonatomic) CAGradientLayer *gradientBgLayer;
 
-@property (nonatomic) CGRect layerFrame;
 @end
 
 static int labelTag = 121;
@@ -301,12 +300,6 @@ static int labelTag = 121;
                     label.textAlignment = NSTextAlignmentLeft;
                 }
                 if ((int)x == (int)_centerX) {
-                    if (section == 0) {
-                        labelY = 0;
-                    }
-                    if (section == 2) {
-                        labelY = self.frame.size.height - ceil(detailSize.height);
-                    }
                     label.frame = CGRectMake(fabs(x - detailSize.width * 0.5), labelY, detailSize.width , detailSize.height);
                     label.textAlignment = NSTextAlignmentCenter;
                 }
