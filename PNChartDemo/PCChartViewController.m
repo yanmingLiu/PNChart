@@ -281,16 +281,15 @@
         self.rightLabel.text = @"Graduation";
         
         
-        self.view.backgroundColor = [UIColor colorWithRed:48/255.0 green:47/255.0 blue:61/255.0 alpha:1.0];
 
         
-        NSArray *items = @[[PNRadarChartDataItem dataItemWithValue:2 description:@"Response 2.0"],
+        NSArray *items = @[[PNRadarChartDataItem dataItemWithValue:2 description:@"In-game Performance 2.0"],
                            [PNRadarChartDataItem dataItemWithValue:4 description:@"Experience\n4.0"],
                            [PNRadarChartDataItem dataItemWithValue:4.8 description:@"Friendly 4.8"],
                            [PNRadarChartDataItem dataItemWithValue:3.0 description:@"Skill\n3.0"],
                            ];
 
-        self.radarChart = [[PNRadarChart alloc] initWithFrame:CGRectMake(0, 135.0, SCREEN_WIDTH, 300.0)
+        self.radarChart = [[PNRadarChart alloc] initWithFrame:CGRectMake(0, 135.0, SCREEN_WIDTH, 166)
                                                         items:items
                                                  valueDivider:1.5];
         self.radarChart.maxValue = 5;
@@ -298,6 +297,7 @@
         self.radarChart.isLabelTouchable = NO;
         self.radarChart.displayAnimated = NO;
         self.radarChart.fontSize = 12;
+        self.radarChart.plotColor = UIColor.clearColor;
         
         // 背景 rgba(50, 42, 255, 1) rgba(105, 46, 242, 1)
         self.radarChart.plotBackColors = [NSMutableArray arrayWithArray:@[(__bridge id)[UIColor colorWithRed:50 / 255.0 green:42 / 255.0 blue:255 / 255.0 alpha:0.54].CGColor, (__bridge id)[UIColor colorWithRed:105 / 255.0 green:46 / 255.0 blue:242 / 255.0 alpha:0.54].CGColor]];
@@ -313,6 +313,9 @@
         
         [self.radarChart strokeChart];
         [self.view addSubview:self.radarChart];
+        
+        self.radarChart.backgroundColor = [UIColor colorWithRed:48/255.0 green:47/255.0 blue:61/255.0 alpha:1.0];
+
     }
 
 }

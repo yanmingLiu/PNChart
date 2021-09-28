@@ -20,8 +20,10 @@
 @property (nonatomic) CAGradientLayer *gradientLayer;
 @property (nonatomic) CAGradientLayer *gradientBgLayer;
 
+@property (nonatomic) CGRect layerFrame;
 @end
 
+static int labelTag = 121;
 
 @implementation PNRadarChart
 
@@ -67,15 +69,15 @@
         [self.layer addSublayer:_chartPlot];
         
         _gradientBgLayer = [CAGradientLayer layer];
-        _gradientBgLayer.frame = frame;
         _gradientBgLayer.startPoint = CGPointMake(0.5, 0);
         _gradientBgLayer.endPoint = CGPointMake(0.5, 1.0);
+        _gradientBgLayer.locations = @[@0.25, @0.75, @1.0];
         [self.layer addSublayer:_gradientBgLayer];
 
         _gradientLayer = [CAGradientLayer layer];
-        _gradientLayer.frame = frame;
         _gradientLayer.startPoint = CGPointMake(0.5, 0);
         _gradientLayer.endPoint = CGPointMake(0.5, 1.0);
+        _gradientLayer.locations = @[@0.25, @0.75];
         [self.layer addSublayer:_gradientLayer];
         
         [super setupDefaultValues];
@@ -123,13 +125,18 @@
     
     //calculate all the lengths
     _maxValue = [self getMaxValueFromArray:values];
-    CGFloat margin = 0;
-    if (_labelStyle==PNRadarChartLabelStyleCircle) {
-        margin = MIN(_centerX , _centerY)*3/10;
-    }else if (_labelStyle==PNRadarChartLabelStyleHorizontal) {
-        margin = [self getMaxWidthLabelFromArray:descriptions withFontSize:_fontSize];
-    }
-    CGFloat maxLength = ceil(MIN(_centerX, _centerY) - margin);
+    
+//    CGFloat margin = 0;
+//    if (_labelStyle==PNRadarChartLabelStyleCircle) {
+//        margin = MIN(_centerX , _centerY)*3/10;
+//    }else if (_labelStyle==PNRadarChartLabelStyleHorizontal) {
+//        margin = [self getMaxWidthLabelFromArray:descriptions withFontSize:_fontSize];
+//    }
+//    CGFloat maxLength = ceil(MIN(_centerX, _centerY) - margin);
+    
+    CGFloat margin = [self getMaxWidthLabelFromArray:descriptions withFontSize:_fontSize];
+    CGFloat maxLength = ceil(_centerX - margin);
+    
     int plotCircles = (_maxValue/_valueDivider);
     if (plotCircles > MAXCIRCLE) {
         NSLog(@"Circle number is higher than max");
@@ -165,6 +172,7 @@
     [self drawLabelWithMaxLength:maxLength labelArray:descriptions angleArray:angles];
     
  }
+
 #pragma mark - Draw
 
 - (void)drawRect:(CGRect)rect {
@@ -202,12 +210,9 @@
         CGContextSetStrokeColorWithColor(graphContext, _webColor.CGColor);
         CGContextStrokePath(graphContext);
     }
-    
-    
 }
 
 - (void)strokeChart {
-    
     [self calculateChartPoints];
     [self setNeedsDisplay];
     [_detailLabel setHidden:YES];
@@ -220,15 +225,13 @@
     for(NSValue *pointValue in _pointsToPlotArray){
         CGPoint point = [pointValue CGPointValue];
         [plotline addLineToPoint:CGPointMake(point.x ,point.y)];
-        
     }
     [plotline setLineWidth:_plotLineWidth];
     [plotline setLineCapStyle:kCGLineCapButt];
     [plotline closePath];
     
     _chartPlot.path = plotline.CGPath;
-
-    _chartPlot.fillColor = UIColor.clearColor.CGColor;
+    _chartPlot.fillColor = _plotColor.CGColor;
     
     // 渐变背景
     CAShapeLayer *bgLayer = [CAShapeLayer layer];
@@ -237,7 +240,6 @@
     bgLayer.lineWidth = 0;
     bgLayer.lineCap = kCALineCapButt;
     bgLayer.path = plotline.CGPath;
-
     _gradientBgLayer.colors = _plotBackColors;
     _gradientBgLayer.mask = bgLayer;
 
@@ -250,7 +252,6 @@
     shapeLayer.lineCap = kCALineCapButt;
     _gradientLayer.colors = _plotBorderColors;
     _gradientLayer.mask = shapeLayer;
-    
 
     [self addAnimationIfNeeded];
     [self showGraduation];
@@ -262,7 +263,6 @@
 
 - (void)drawLabelWithMaxLength:(CGFloat)maxLength labelArray:(NSArray *)labelArray angleArray:(NSArray *)angleArray {
     //set labels
-    int labelTag = 121;
     while (true) {
         UIView *label = [self viewWithTag:labelTag];
         if(!label)break;
