@@ -131,8 +131,8 @@ static int labelTag = 121;
     }else if (_labelStyle==PNRadarChartLabelStyleHorizontal) {
         margin = [self getMaxWidthLabelFromArray:descriptions withFontSize:_fontSize];
     }
-    CGFloat maxLength = ceil(MAX(_centerX, _centerY) - margin);
-    
+    CGFloat maxLength = ceil(MIN(_centerX, _centerY) - margin);
+
     int plotCircles = (_maxValue/_valueDivider);
     if (plotCircles > MAXCIRCLE) {
         NSLog(@"Circle number is higher than max");
@@ -279,11 +279,9 @@ static int labelTag = 121;
         label.text = labelString;
         label.tag = labelTag;
         label.numberOfLines = 0;
-        [label sizeToFit];
         
         CGSize detailSize = [labelString sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_fontSize]}];
-        detailSize = label.frame.size;
-        CGFloat labelY = y - ceil(detailSize.height) / 2.0;
+        CGFloat labelY = y - detailSize.height / 2.0;
         
         switch (_labelStyle) {
             case PNRadarChartLabelStyleCircle:
@@ -300,7 +298,12 @@ static int labelTag = 121;
                     label.textAlignment = NSTextAlignmentLeft;
                 }
                 if ((int)x == (int)_centerX) {
-                    label.frame = CGRectMake(fabs(x - detailSize.width * 0.5), labelY, detailSize.width , detailSize.height);
+                    if (y < _centerY) {
+                        labelY -= detailSize.height / 2.0;
+                    } else {
+                        labelY += detailSize.height / 2.0;
+                    }
+                    label.frame = CGRectMake(x - detailSize.width * 0.5, labelY, detailSize.width , detailSize.height);
                     label.textAlignment = NSTextAlignmentCenter;
                 }
                 label.textAlignment = NSTextAlignmentCenter;
@@ -390,9 +393,9 @@ static int labelTag = 121;
     CGFloat maxWidth = 0;
     for (NSString *str in keyArray) {
         CGSize detailSize = [str sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_fontSize]}];
-        maxWidth = MAX(maxWidth, detailSize.width);
+        maxWidth = MAX(maxWidth, MIN(detailSize.width, detailSize.height));
     }
-    return ceil(maxWidth);
+    return maxWidth;
 }
 
 - (CGFloat)getMaxValueFromArray:(NSArray *)valueArray {
