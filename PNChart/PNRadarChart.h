@@ -55,4 +55,7 @@ typedef NS_ENUM(NSUInteger, PNRadarChartLabelStyle) {
 /** 渐变背景的颜色 */
 @property (nonatomic) NSArray *plotBackColors;
 
+/** 渐变边框的宽度 */
+@property (nonatomic) CGFloat plotLineWidth;
+
 @end

@@ -89,6 +89,8 @@
         [_detailLabel setHidden:YES];
         [self addSubview:_detailLabel];
         
+        _plotLineWidth = 2;
+        
         [self strokeChart];
     }
     return self;
@@ -220,7 +222,7 @@
         [plotline addLineToPoint:CGPointMake(point.x ,point.y)];
         
     }
-    [plotline setLineWidth:2];
+    [plotline setLineWidth:_plotLineWidth];
     [plotline setLineCapStyle:kCGLineCapButt];
     [plotline closePath];
     
@@ -244,7 +246,7 @@
     shapeLayer.path = plotline.CGPath;
     shapeLayer.fillColor = [UIColor clearColor].CGColor;
     shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
-    shapeLayer.lineWidth = 3;
+    shapeLayer.lineWidth = _plotLineWidth;
     shapeLayer.lineCap = kCALineCapButt;
     _gradientLayer.colors = _plotBorderColors;
     _gradientLayer.mask = shapeLayer;
