@@ -21,10 +21,10 @@
     [super viewDidLoad];
     
     
-    NSArray *items = @[[PNRadarChartDataItem dataItemWithValue:2.0 description:@"Performance 2.0"],
-                       [PNRadarChartDataItem dataItemWithValue:4.0 description:@"Experience\n4.0"],
-                       [PNRadarChartDataItem dataItemWithValue:4.8 description:@"Friendly 4.8"],
-                       [PNRadarChartDataItem dataItemWithValue:3.0 description:@"Skill\n3.0"],
+    NSArray *items = @[[PNRadarChartDataItem dataItemWithValue:4.0 description:@"Performance 4.0"],
+                       [PNRadarChartDataItem dataItemWithValue:4.5 description:@"Experience\n4.5"],
+                       [PNRadarChartDataItem dataItemWithValue:2.8 description:@"Friendly 2.8"],
+                       [PNRadarChartDataItem dataItemWithValue:1.5 description:@"Skill\n1.5"],
                        ];
 
     self.radarChart = [[PNRadarChart alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 166)

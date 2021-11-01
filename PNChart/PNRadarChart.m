@@ -95,7 +95,7 @@ static int labelTag = 121;
         [_detailLabel setHidden:YES];
         [self addSubview:_detailLabel];
         
-        _plotLineWidth = 2;
+        _plotLineWidth = 1;
         
         [self strokeChart];
     }
@@ -115,7 +115,15 @@ static int labelTag = 121;
     for (int i=0;i<_chartData.count;i++) {
         PNRadarChartDataItem *item = (PNRadarChartDataItem *)[_chartData objectAtIndex:i];
         [descriptions addObject:item.textDescription];
-        [values addObject:[NSNumber numberWithFloat:item.value]];
+        CGFloat value = item.value;
+        if (value >= 4) {
+            CGFloat num = round((5 - value)*10);
+            value = 5 - num * 0.25;
+        } else {
+            CGFloat num = floor(value);
+            value = 2.5 - (4 - num) * 0.6;
+        }
+        [values addObject:[NSNumber numberWithFloat:value]];
         CGFloat angleValue = (float)i/(float)[_chartData count]*2*M_PI + M_PI_2 * 3;
         [angles addObject:[NSNumber numberWithFloat:angleValue]];
     }
